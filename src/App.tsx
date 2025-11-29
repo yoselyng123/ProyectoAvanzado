@@ -1,9 +1,12 @@
 import './App.css';
 import Carta from './components/Carta';
-import VistaMazo from './screens/VistaMazo';
 
 function App() {
-  return <VistaMazo />;
+  return (
+    <div>
+      <Carta numero={1} imagen={'❤️'} />
+    </div>
+  );
 }
 
 export default App;
