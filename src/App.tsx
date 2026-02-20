@@ -11,8 +11,6 @@ function App() {
   const [mostrarModalCrearCarta, setMostrarModalCrearCarta] =
     useState<boolean>(false);
 
-  const [listaCartas, setListaCartas] = useState([]);
-
   function condicionalModal() {
     if (mostrarModal === true) {
       return <VistaDetalle cambiarEstadoModal={setMostrarModal} />;
