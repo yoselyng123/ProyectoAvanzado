@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import { IoMdAdd } from 'react-icons/io';
 import CustomBtn from './components/CustomBtn';
@@ -10,6 +10,30 @@ function App() {
   const [mostrarModal, setMostrarModal] = useState<boolean>(false);
   const [mostrarModalCrearCarta, setMostrarModalCrearCarta] =
     useState<boolean>(false);
+
+  const fetchCartas = async () => {
+    try {
+      const response = await fetch('https://educapi-v2.onrender.com/card', {
+        method: 'GET',
+        headers: {
+          usersecretpasskey: 'USR-SECRET-99',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCartas();
+  }, []);
 
   function condicionalModal() {
     if (mostrarModal === true) {
