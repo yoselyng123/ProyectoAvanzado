@@ -1,86 +1,79 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import { IoMdAdd } from 'react-icons/io';
-import CustomBtn from './components/CustomBtn';
+
+import { type CartaType } from './data/entidades.tsx';
+import { Route, Routes, useNavigate } from 'react-router';
+import VistaMazo from './screens/VistaMazo.tsx';
 import VistaDetalle from './screens/VistaDetalle.tsx';
 import CrearCarta from './components/CrearCarta.tsx';
-import Carta from './components/Carta.tsx';
 
 function App() {
-  const [mostrarModal, setMostrarModal] = useState<boolean>(false);
-  const [mostrarModalCrearCarta, setMostrarModalCrearCarta] =
-    useState<boolean>(false);
+  const [mazoCartas, setMazoCartas] = useState<CartaType[]>([]);
+  const [cartaClickeada, setCartaClickeada] = useState<CartaType | null>(null);
 
-  const fetchCartas = async () => {
-    try {
-      const response = await fetch('https://educapi-v2.onrender.com/card', {
-        method: 'GET',
-        headers: {
-          usersecretpasskey: 'USR-SECRET-99',
-        },
-      });
+  let navigate = useNavigate();
 
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}`);
-      }
+  const getCartas = async () => {
+    let urlAPI = 'https://educapi-v2.onrender.com/card';
 
-      const data = await response.json();
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
+    const respuesta = await fetch(urlAPI, {
+      method: 'GET',
+      headers: {
+        usersecretpasskey: 'uwu77',
+      },
+    });
+
+    const objeto = await respuesta.json();
+
+    setMazoCartas(objeto.data);
+
+    console.log(objeto.data);
   };
 
   useEffect(() => {
-    fetchCartas();
+    getCartas();
   }, []);
 
-  function condicionalModal() {
-    if (mostrarModal === true) {
-      return <VistaDetalle cambiarEstadoModal={setMostrarModal} />;
-    }
-  }
-
-  {
-    mostrarModal === true && (
-      <VistaDetalle cambiarEstadoModal={setMostrarModal} />
-    );
-  }
-
   return (
-    <div className='flex flex-col gap-2'>
-      {/* {mostrarModal && <VistaDetalle cambiarEstadoModal={setMostrarModal} />} */}
-      {condicionalModal()}
-
-      {mostrarModalCrearCarta && (
-        <CrearCarta
-          cambiarEstadoModal={() => setMostrarModalCrearCarta(false)}
+    <Routes>
+      <Route
+        path='/'
+        element={
+          <VistaMazo
+            mazo={mazoCartas}
+            setCartaClickeada={setCartaClickeada}
+            setMazoCartas={setMazoCartas}
+            cartaClickeada={cartaClickeada}
+          />
+        }
+      />
+      {cartaClickeada && (
+        <Route
+          path='/:idCard'
+          element={
+            <VistaDetalle
+              cambiarEstadoModal={() => {
+                navigate('/');
+              }}
+              carta={cartaClickeada}
+              setMazoCartas={setMazoCartas}
+            />
+          }
         />
       )}
-      <header className='flex justify-between p-5 border-b border-gray-400'>
-        <h1 className='uppercase font-bold text-4xl'>Carticas</h1>
-        <CustomBtn
-          extraStyle='rounded-full'
-          accion={() => setMostrarModalCrearCarta(true)}
-        >
-          <IoMdAdd size={28} />
-        </CustomBtn>
-      </header>
-      <div className='flex flex-wrap px-4 py-2.5 gap-4'>
-        <div onClick={() => setMostrarModal(true)}>
-          <Carta nombre={1} imagen='😎' ancho={150} alto={220} />
-        </div>
-        <div onClick={() => setMostrarModal(true)}>
-          <Carta nombre={1} imagen='😎' ancho={150} alto={220} />
-        </div>
-        <div onClick={() => setMostrarModal(true)}>
-          <Carta nombre={1} imagen='😎' ancho={150} alto={220} />
-        </div>
-        <div onClick={() => setMostrarModal(true)}>
-          <Carta nombre={1} imagen='😎' ancho={150} alto={220} />
-        </div>
-      </div>
-    </div>
+
+      <Route
+        path='/crear'
+        element={
+          <CrearCarta
+            setMazoCartas={setMazoCartas}
+            cambiarEstadoModal={() => {
+              navigate('/');
+            }}
+          />
+        }
+      />
+    </Routes>
   );
 }
 

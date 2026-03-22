@@ -1,27 +1,35 @@
-import { useEffect } from 'react';
-
 type Props = {
   nombre: number | string;
-  imagen: string;
+  color: string;
   ancho?: number;
   alto?: number;
 };
 
-function Carta({ nombre, imagen, ancho = 380, alto = 580 }: Props) {
-  useEffect(() => {
-    console.log('USE EFFECT DE CARTA');
-  }, []);
-
+function Carta({ nombre, color = '#252120', ancho = 320, alto = 500 }: Props) {
   return (
     <div
-      style={{ width: `${ancho}px`, height: `${alto}px` }}
-      className={`relative border-2 border-black bg-white text-white flex justify-center items-center rounded-2xl cursor-pointer`}
+      className={`${ancho > 300 ? 'border-20' : 'border-12'} border-[#252120] text-white rounded-2xl cursor-pointer`}
+      style={{
+        width: `${ancho}px`,
+        height: `${alto}px`,
+        backgroundColor: '#252120',
+      }}
     >
-      <div className='absolute top-2 left-2 text-black font-bold text-2xl'>
-        <p>{nombre}</p>
-      </div>
-      <div>
-        <p className='text-7xl'>{imagen}</p>
+      <div
+        className={`relative text-white flex justify-center items-center rounded-2xl cursor-pointer h-full`}
+        style={{
+          backgroundColor: color,
+        }}
+      >
+        <div className='absolute top-0 left-2 text-white font-bold text-3xl number-font'>
+          <p>{nombre}</p>
+        </div>
+        <div className='bg-white rounded-[100%] w-[95%] h-[55%] flex items-center justify-center number-font'>
+          <p className='text-black font-bold text-7xl'>{nombre}</p>
+        </div>
+        <div className='absolute bottom-0 right-2 text-white font-bold text-3xl number-font'>
+          <p>{nombre}</p>
+        </div>
       </div>
     </div>
   );
