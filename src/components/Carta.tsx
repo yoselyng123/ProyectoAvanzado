@@ -6,29 +6,69 @@ type Props = {
 };
 
 function Carta({ nombre, color = '#252120', ancho = 320, alto = 500 }: Props) {
+  const COLORS = {
+    Rojo: '#E95E30',
+    Azul: '#3B4497',
+    Amarillo: '#E3D2A7',
+    Verde: '#71B373',
+    Negro: '#252120',
+  };
+
   return (
     <div
-      className={`${ancho > 300 ? 'border-20' : 'border-12'} border-[#252120] text-white rounded-2xl cursor-pointer`}
+      className='group cursor-pointer'
       style={{
         width: `${ancho}px`,
         height: `${alto}px`,
-        backgroundColor: '#252120',
+        perspective: '1000px',
       }}
     >
-      <div
-        className={`relative text-white flex justify-center items-center rounded-2xl cursor-pointer h-full`}
-        style={{
-          backgroundColor: color,
-        }}
-      >
-        <div className='absolute top-0 left-2 text-white font-bold text-3xl number-font'>
-          <p>{nombre}</p>
+      <div className='relative h-full w-full duration-700 transform-3d group-hover:transform-[rotateY(180deg)]'>
+        {/* Front */}
+        <div
+          className={`${ancho > 300 ? 'border-20' : 'border-12'} absolute inset-0 rounded-2xl border border-[#252120] text-white backface-hidden`}
+          style={{
+            backgroundColor: '#252120',
+          }}
+        >
+          <div
+            className='relative flex h-full items-center justify-center rounded-2xl text-white'
+            style={{
+              backgroundColor: color,
+            }}
+          >
+            <div className='absolute top-0 left-2 text-3xl font-bold number-font'>
+              <p>{nombre}</p>
+            </div>
+
+            <div className='flex h-[55%] w-[95%] items-center justify-center rounded-full bg-white number-font'>
+              <p className='text-7xl font-bold text-black'>{nombre}</p>
+            </div>
+
+            <div className='absolute right-2 bottom-0 text-3xl font-bold number-font'>
+              <p>{nombre}</p>
+            </div>
+          </div>
         </div>
-        <div className='bg-white rounded-[100%] w-[95%] h-[55%] flex items-center justify-center number-font'>
-          <p className='text-black font-bold text-7xl'>{nombre}</p>
-        </div>
-        <div className='absolute bottom-0 right-2 text-white font-bold text-3xl number-font'>
-          <p>{nombre}</p>
+
+        {/* Back */}
+        <div
+          className={`${ancho > 300 ? 'border-20' : 'border-12'} absolute inset-0 rounded-2xl border border-[#252120] text-white backface-hidden transform-[rotateY(180deg)] flex items-center justify-center`}
+          style={{
+            backgroundColor: '#252120',
+          }}
+        >
+          <div
+            className={`rounded-2xl text-center relative transform-[rotate(45deg)] -translate-y-[15px] -translate-x-2.5 ${ancho > 300 && 'scale-125'}`}
+          >
+            <div className='w-[50px] h-[50px] bg-[#E95E30] rounded-full opacity-70 absolute top-[-30%] left-[35%] -translate-x-[25px] -translate-y-[25px]' />
+            <div className='w-[50px] h-[50px] bg-[#3B4497] rounded-full opacity-70 absolute top-[-30%] left-[35%] translate-x-[25px] -translate-y-[25px]' />
+            <div className='w-[50px] h-[50px] bg-[#E3D2A7] rounded-full opacity-70 absolute top-[-30%] left-[35%] -translate-x-[25px] translate-y-[25px]' />
+            <div className='w-[50px] h-[50px] bg-[#71B373] rounded-full opacity-70 absolute top-[-30%] left-[35%] translate-x-[25px] translate-y-[25px]' />
+            <p className='number-font z-10 text-2xl font-extrabold transform-[rotate(-45deg)] translate-y-0.5 translate-x-[15px]'>
+              EDUCA
+            </p>
+          </div>
         </div>
       </div>
     </div>

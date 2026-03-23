@@ -35,8 +35,10 @@ function VistaMazo({
           setMazoCartas={setMazoCartas}
         />
       )}
-      <header className='flex justify-between p-5 border-b border-gray-400'>
-        <h1 className='uppercase font-bold text-4xl'>Carticas</h1>
+      <header className='flex justify-between p-5 border-b-2'>
+        <h1 className='uppercase font-bold text-8xl text-black number-font'>
+          Mazo
+        </h1>
         <Link to='/crear'>
           <CustomBtn extraStyle='rounded-full' accion={() => {}}>
             <IoMdAdd size={28} />
