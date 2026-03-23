@@ -264,6 +264,8 @@ function VistaDetalle({ cambiarEstadoModal, carta, setMazoCartas }: Props) {
               />
             )}
 
+            {error && <p className='text-red-500 font-bold'>*{error}</p>}
+
             {modoEditar && (
               <CustomBtn
                 accion={() => {

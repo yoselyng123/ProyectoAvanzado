@@ -6,14 +6,6 @@ type Props = {
 };
 
 function Carta({ nombre, color = '#252120', ancho = 320, alto = 500 }: Props) {
-  const COLORS = {
-    Rojo: '#E95E30',
-    Azul: '#3B4497',
-    Amarillo: '#E3D2A7',
-    Verde: '#71B373',
-    Negro: '#252120',
-  };
-
   return (
     <div
       className='group cursor-pointer'
