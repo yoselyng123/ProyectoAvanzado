@@ -35,7 +35,7 @@ function VistaMazo({
           setMazoCartas={setMazoCartas}
         />
       )}
-      <header className='flex justify-between p-5 border-b-2'>
+      <header className='flex justify-between p-5 border-b-2 items-center'>
         <h1 className='uppercase font-bold text-8xl text-black number-font'>
           Mazo
         </h1>
@@ -50,10 +50,10 @@ function VistaMazo({
           return (
             <div onClick={() => mostrarDetalleCarta(carta)} key={carta.idCard}>
               <Carta
-                nombre={carta.name}
+                card={carta}
                 color={carta.attributes.color}
-                ancho={180}
-                alto={280}
+                ancho={220}
+                alto={300}
               />
             </div>
           );

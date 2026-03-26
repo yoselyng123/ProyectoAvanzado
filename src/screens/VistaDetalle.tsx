@@ -4,20 +4,7 @@ import CustomBtn from '../components/CustomBtn';
 import Modal from '../components/Modal';
 import PropiedadCarta from '../components/PropiedadCarta';
 import CustomDropdown from '../components/CustomDropdown';
-
-type CartaType = {
-  idCard: string;
-  attack: number;
-  defense: number;
-  descripcion?: string;
-  lifePoints: number;
-  name: string;
-  pictureUrl: string;
-  userSecret: string;
-  attributes: any;
-  createdAt: string;
-  updatedAt: any;
-};
+import type { CartaType } from '../data/entidades';
 
 type Props = {
   cambiarEstadoModal: Function;
@@ -158,7 +145,7 @@ function VistaDetalle({ cambiarEstadoModal, carta, setMazoCartas }: Props) {
       <Modal cambiarEstadoModal={cambiarEstadoModal}>
         <div className='flex gap-8 w-full justify-center'>
           <div className='flex-1 flex items-center justify-center flex-col gap-7'>
-            <Carta nombre={carta.name} color={carta.attributes.color} />
+            <Carta card={carta} color={carta.attributes.color} />
             <div className='flex gap-8'>
               <CustomBtn
                 accion={() => {
