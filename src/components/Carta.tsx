@@ -1,5 +1,7 @@
+import type { CartaType } from '../data/entidades';
+
 type Props = {
-  nombre: number | string;
+  carta: CartaType;
   color: string;
   ancho?: number;
   alto?: number;
@@ -8,10 +10,10 @@ type Props = {
 };
 
 function Carta({
-  nombre,
+  carta,
   color = '#252120',
-  ancho = 320,
-  alto = 500,
+  ancho = 420,
+  alto = 600,
   seleccionada = false,
   selectionMode = false,
 }: Props) {
@@ -45,16 +47,44 @@ function Carta({
               backgroundColor: color,
             }}
           >
-            <div className='absolute top-0 left-2 text-3xl font-bold number-font'>
-              <p>{nombre}</p>
+            <div className='absolute top-0 right-3'>
+              <p
+                className='
+                  text-4xl font-black italic tracking-tighter text-white uppercase
+                  [text-shadow:2px_2px_0px_rgba(0,0,0,1)]
+                  drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.8)]
+                  number-font
+                '
+              >
+                {String(carta?.idCard).padStart(3, '0')}
+              </p>
             </div>
 
-            <div className='flex h-[55%] w-[95%] items-center justify-center rounded-full bg-white number-font'>
-              <p className='text-7xl font-bold text-black'>{nombre}</p>
-            </div>
+            <img
+              src={carta.pictureUrl}
+              alt={carta.name}
+              referrerPolicy='no-referrer'
+              className='h-full w-full object-cover p-3'
+            />
 
-            <div className='absolute right-2 bottom-0 text-3xl font-bold number-font'>
-              <p>{nombre}</p>
+            <div
+              className={`absolute ${ancho > 400 ? 'bottom-20' : 'bottom-10'} left-0 w-full`}
+            >
+              {/* Contenedor principal con fondo oscuro y forma sesgada */}
+              <div
+                className={`bg-[#252120] text-white px-8 ${ancho > 400 ? 'py-3' : 'py-1.5'} flex items-center justify-center w-[90%] [clip-path:polygon(0_0,100%_0,92%_100%,0%_100%)] border-b-4 border-gray-400/80`}
+              >
+                <h2 className='text-3xl font-black italic tracking-tighter uppercase drop-shadow-md'>
+                  {carta?.name || 'LUKE'}
+                </h2>
+              </div>
+
+              {/* Detalle decorativo del borde derecho (la línea diagonal blanca/gris) */}
+              <div
+                className='absolute bottom-0 right-0 h-full w-[15%] bg-gray-300
+               [clip-path:polygon(80%_0,100%_0,100%_100%,20%_100%)] 
+               -z-10 translate-x-1'
+              />
             </div>
           </div>
         </div>

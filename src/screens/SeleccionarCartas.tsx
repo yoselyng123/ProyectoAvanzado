@@ -85,10 +85,10 @@ function SeleccionarCartas({ mazo, loading }: Props) {
                   key={carta.idCard}
                 >
                   <Carta
-                    nombre={carta.name}
+                    carta={carta}
                     color={carta.attributes.color}
-                    ancho={180}
-                    alto={280}
+                    ancho={260}
+                    alto={360}
                     seleccionada={
                       cartaSeleccionada1?.idCard == carta.idCard ||
                       cartaSeleccionada2?.idCard == carta.idCard

@@ -9,7 +9,7 @@ type CartaType = {
   idCard: string;
   attack: number;
   defense: number;
-  descripcion?: string;
+  description?: string;
   lifePoints: number;
   name: string;
   pictureUrl: string;
@@ -27,11 +27,14 @@ type Props = {
 
 function VistaDetalle({ cambiarEstadoModal, carta, setMazoCartas }: Props) {
   const COLORS = {
-    Rojo: '#E95E30',
+    Rojo: '#971E31',
     Azul: '#3B4497',
-    Amarillo: '#E3D2A7',
+    Amarillo: '#D38F03',
     Verde: '#71B373',
     Negro: '#252120',
+    Morado: '#5A0B37',
+    Gris: '#4C4A48',
+    Naranja: '#8D4005',
   };
   type ColorKey = keyof typeof COLORS;
   const colorKeys = Object.keys(COLORS) as ColorKey[];
@@ -74,7 +77,7 @@ function VistaDetalle({ cambiarEstadoModal, carta, setMazoCartas }: Props) {
   useEffect(() => {
     if (modoEditar) {
       setNombre(carta.name);
-      setDescripcion(carta.descripcion ?? '');
+      setDescripcion(carta.description ?? '');
       setAtaque(carta.attack);
       setDefensa(carta.defense);
       setVida(carta.lifePoints);
@@ -158,7 +161,7 @@ function VistaDetalle({ cambiarEstadoModal, carta, setMazoCartas }: Props) {
       <Modal cambiarEstadoModal={cambiarEstadoModal}>
         <div className='flex gap-8 w-full justify-center'>
           <div className='flex-1 flex items-center justify-center flex-col gap-7'>
-            <Carta nombre={carta.name} color={carta.attributes.color} />
+            <Carta carta={carta} color={carta.attributes.color} />
             <div className='flex gap-8'>
               <CustomBtn
                 accion={() => {
@@ -213,7 +216,7 @@ function VistaDetalle({ cambiarEstadoModal, carta, setMazoCartas }: Props) {
             />
             <PropiedadCarta
               titulo='Descripcion'
-              valor={carta.descripcion}
+              valor={carta.description}
               modoEditar={modoEditar}
               valorEditable={descripcion}
               setValorEditable={setDescripcion}

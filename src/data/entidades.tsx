@@ -2,7 +2,7 @@ export type CartaType = {
   idCard: string;
   attack: number;
   defense: number;
-  descripcion?: string;
+  description?: string;
   lifePoints: number;
   name: string;
   pictureUrl: string;

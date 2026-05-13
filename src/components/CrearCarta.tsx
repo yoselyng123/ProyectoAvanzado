@@ -11,11 +11,13 @@ type Props = {
 
 function CrearCarta({ cambiarEstadoModal, setMazoCartas }: Props) {
   const COLORS = {
-    Rojo: '#E95E30',
+    Rojo: '#971E31',
     Azul: '#3B4497',
-    Amarillo: '#E3D2A7',
+    Amarillo: '#D38F03',
     Verde: '#71B373',
     Negro: '#252120',
+    Morado: '#5A0B37',
+    Gris: '#4C4A48',
   };
 
   const [nombre, setNombre] = useState('');
@@ -53,7 +55,6 @@ function CrearCarta({ cambiarEstadoModal, setMazoCartas }: Props) {
   const crearCarta = async () => {
     if (
       nombre === '' ||
-      descripcion === '' ||
       imagen === '' ||
       ataque <= 0 ||
       defensa <= 0 ||

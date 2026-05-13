@@ -67,10 +67,10 @@ function VistaMazo({
                 key={carta.idCard}
               >
                 <Carta
-                  nombre={carta.name}
+                  carta={carta}
                   color={carta.attributes.color}
-                  ancho={180}
-                  alto={280}
+                  ancho={260}
+                  alto={360}
                 />
               </div>
             );
