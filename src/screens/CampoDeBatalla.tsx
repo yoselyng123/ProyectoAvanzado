@@ -40,7 +40,6 @@ function CampoDeBatalla() {
       return;
     }
 
-    let ignore = false;
     setLoading(true);
     setError(null);
 
@@ -51,32 +50,17 @@ function CampoDeBatalla() {
           getCarta(id2),
         ]);
 
-        if (!ignore) {
-          setCarta1(nuevaCarta1);
-          setCarta2(nuevaCarta2);
-        }
+        setCarta1(nuevaCarta1);
+        setCarta2(nuevaCarta2);
       } catch (error) {
-        if (!ignore) {
-          setCarta1(null);
-          setCarta2(null);
-          setError(
-            error instanceof Error
-              ? error.message
-              : 'No se pudieron cargar las cartas',
-          );
-        }
-      } finally {
-        if (!ignore) {
-          setLoading(false);
-        }
+        setCarta1(null);
+        setCarta2(null);
+        setLoading(false);
+        setError('No se pudieron cargar las cartas');
       }
     };
 
     cargarCartas();
-
-    return () => {
-      ignore = true;
-    };
   }, [id1, id2]);
 
   return (
