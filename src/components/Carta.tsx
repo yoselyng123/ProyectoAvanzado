@@ -3,28 +3,44 @@ type Props = {
   color: string;
   ancho?: number;
   alto?: number;
+  seleccionada?: boolean;
+  selectionMode?: boolean;
 };
 
-function Carta({ nombre, color = '#252120', ancho = 320, alto = 500 }: Props) {
+function Carta({
+  nombre,
+  color = '#252120',
+  ancho = 320,
+  alto = 500,
+  seleccionada = false,
+  selectionMode = false,
+}: Props) {
   return (
     <div
-      className='group cursor-pointer'
+      className={`group cursor-pointer transition-transform duration-300 ${seleccionada ? 'scale-105' : ''}`}
       style={{
         width: `${ancho}px`,
         height: `${alto}px`,
         perspective: '1000px',
       }}
     >
-      <div className='relative h-full w-full duration-700 transform-3d group-hover:transform-[rotateY(180deg)]'>
+      <div
+        className={`relative h-full w-full ${!selectionMode && 'duration-700 transform-3d group-hover:transform-[rotateY(180deg)]'}`}
+      >
         {/* Front */}
         <div
-          className={`${ancho > 300 ? 'border-20' : 'border-12'} absolute inset-0 rounded-2xl border border-[#252120] text-white backface-hidden`}
+          className={`
+            ${ancho > 300 ? 'border-16' : 'border-10'} 
+            absolute inset-0 rounded-2xl text-white backface-hidden flex flex-col
+            ${seleccionada ? 'border-blue-500 shadow-[0_0_15px_rgba(234,179,8,0.5)]' : 'border-[#252120]'}
+          `}
           style={{
             backgroundColor: '#252120',
+            transition: 'border-color 0.3s ease',
           }}
         >
           <div
-            className='relative flex h-full items-center justify-center rounded-2xl text-white'
+            className='relative flex h-full items-center justify-center rounded-lg text-white'
             style={{
               backgroundColor: color,
             }}
@@ -45,9 +61,14 @@ function Carta({ nombre, color = '#252120', ancho = 320, alto = 500 }: Props) {
 
         {/* Back */}
         <div
-          className={`${ancho > 300 ? 'border-20' : 'border-12'} absolute inset-0 rounded-2xl border border-[#252120] text-white backface-hidden transform-[rotateY(180deg)] flex items-center justify-center`}
+          className={`
+            ${ancho > 300 ? 'border-16' : 'border-10'} 
+            absolute inset-0 rounded-2xl text-white backface-hidden transform-[rotateY(180deg)] flex items-center justify-center
+            ${seleccionada ? 'border-blue-500' : 'border-[#252120]'}
+          `}
           style={{
             backgroundColor: '#252120',
+            transition: 'border-color 0.3s ease',
           }}
         >
           <div

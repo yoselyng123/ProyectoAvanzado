@@ -6,14 +6,18 @@ import { Route, Routes, useNavigate } from 'react-router';
 import VistaMazo from './screens/VistaMazo.tsx';
 import VistaDetalle from './screens/VistaDetalle.tsx';
 import CrearCarta from './components/CrearCarta.tsx';
+import SeleccionarCartas from './screens/SeleccionarCartas.tsx';
+import CampoDeBatalla from './screens/CampoDeBatalla.tsx';
 
 function App() {
   const [mazoCartas, setMazoCartas] = useState<CartaType[]>([]);
   const [cartaClickeada, setCartaClickeada] = useState<CartaType | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   let navigate = useNavigate();
 
   const getCartas = async () => {
+    setLoading(true);
     let urlAPI = 'https://educapi-v2.onrender.com/card';
 
     const respuesta = await fetch(urlAPI, {
@@ -28,6 +32,7 @@ function App() {
     setMazoCartas(objeto.data);
 
     console.log(objeto.data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -44,6 +49,7 @@ function App() {
             setCartaClickeada={setCartaClickeada}
             setMazoCartas={setMazoCartas}
             cartaClickeada={cartaClickeada}
+            loading={loading}
           />
         }
       />
@@ -73,6 +79,13 @@ function App() {
           />
         }
       />
+
+      <Route
+        path='/seleccionar-cartas'
+        element={<SeleccionarCartas mazo={mazoCartas} loading={loading} />}
+      />
+
+      <Route path='/campo-de-batalla/:id1/:id2' element={<CampoDeBatalla />} />
     </Routes>
   );
 }
