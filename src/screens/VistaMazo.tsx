@@ -1,6 +1,7 @@
 import type { CartaType } from '../data/entidades';
 import CustomBtn from '../components/CustomBtn';
 import { IoMdAdd } from 'react-icons/io';
+import { TbSwords } from 'react-icons/tb';
 import Carta from '../components/Carta';
 import { useState } from 'react';
 import { Link } from 'react-router';
@@ -11,6 +12,7 @@ type Props = {
   setCartaClickeada: Function;
   setMazoCartas: Function;
   cartaClickeada: CartaType | null;
+  loading: boolean;
 };
 
 function VistaMazo({
@@ -18,6 +20,7 @@ function VistaMazo({
   setCartaClickeada,
   setMazoCartas,
   cartaClickeada,
+  loading,
 }: Props) {
   const [mostrarModal, setMostrarModal] = useState<boolean>(false);
   function mostrarDetalleCarta(carta: CartaType) {
@@ -39,25 +42,39 @@ function VistaMazo({
         <h1 className='uppercase font-bold text-8xl text-black number-font'>
           Mazo
         </h1>
-        <Link to='/crear'>
-          <CustomBtn extraStyle='rounded-full' accion={() => {}}>
-            <IoMdAdd size={28} />
-          </CustomBtn>
-        </Link>
+        <div className='flex gap-5'>
+          <Link to='/seleccionar-cartas'>
+            <CustomBtn extraStyle='rounded-full' accion={() => {}}>
+              <TbSwords size={28} />
+            </CustomBtn>
+          </Link>
+          <Link to='/crear'>
+            <CustomBtn extraStyle='rounded-full' accion={() => {}}>
+              <IoMdAdd size={28} />
+            </CustomBtn>
+          </Link>
+        </div>
       </header>
       <div className='flex flex-wrap px-4 py-2.5 gap-4'>
-        {mazo.map((carta) => {
-          return (
-            <div onClick={() => mostrarDetalleCarta(carta)} key={carta.idCard}>
-              <Carta
-                nombre={carta.name}
-                color={carta.attributes.color}
-                ancho={180}
-                alto={280}
-              />
-            </div>
-          );
-        })}
+        {loading && <p>Cargando...</p>}
+
+        {!loading &&
+          mazo &&
+          mazo.map((carta) => {
+            return (
+              <div
+                onClick={() => mostrarDetalleCarta(carta)}
+                key={carta.idCard}
+              >
+                <Carta
+                  nombre={carta.name}
+                  color={carta.attributes.color}
+                  ancho={180}
+                  alto={280}
+                />
+              </div>
+            );
+          })}
       </div>
     </div>
   );
