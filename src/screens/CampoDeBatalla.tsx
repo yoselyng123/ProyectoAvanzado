@@ -52,6 +52,7 @@ function CampoDeBatalla() {
 
         setCarta1(nuevaCarta1);
         setCarta2(nuevaCarta2);
+        setLoading(false);
       } catch (error) {
         setCarta1(null);
         setCarta2(null);
