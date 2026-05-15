@@ -59,7 +59,6 @@ function SeleccionarCartas({ mazo, loading }: Props) {
 
         <Link
           to={`/campo-de-batalla/${cartaSeleccionada1?.idCard}/${cartaSeleccionada2?.idCard}`}
-          style={{ pointerEvents: listoBatalla ? 'auto' : 'none' }}
         >
           <CustomBtn
             extraStyle='rounded-full'

@@ -7,6 +7,7 @@ type Props = {
   alto?: number;
   seleccionada?: boolean;
   selectionMode?: boolean;
+  mostrarVida?: boolean;
 };
 
 function Carta({
@@ -16,7 +17,11 @@ function Carta({
   alto = 600,
   seleccionada = false,
   selectionMode = false,
+  mostrarVida = false,
 }: Props) {
+  const vidaActual = Math.max(carta.lifePoints, 0);
+  const porcentajeVida = Math.min(vidaActual, 100);
+
   return (
     <div
       className={`group cursor-pointer transition-transform duration-300 ${seleccionada ? 'scale-105' : ''}`}
@@ -87,6 +92,20 @@ function Carta({
               />
             </div>
           </div>
+          {mostrarVida && (
+            <div className='absolute bottom-0 w-full  border-2 border-[#252120] bg-[#252120]/90 px-2 py-1 shadow-lg'>
+              <div className='mb-1 flex items-center justify-between text-[10px] font-black uppercase text-white number-font'>
+                <span>Vida</span>
+                <span>{vidaActual}</span>
+              </div>
+              <div className='h-2 overflow-hidden rounded-full bg-red-900/80'>
+                <div
+                  className='h-full rounded-full bg-green-400 transition-all duration-300'
+                  style={{ width: `${porcentajeVida}%` }}
+                />
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Back */}
