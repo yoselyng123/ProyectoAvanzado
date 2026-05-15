@@ -196,7 +196,7 @@ function CampoDeBatalla() {
               <LogsBatalla turno={1} p1={carta1} p2={carta2} damage={100} />
             )}
             <Link to='/'>
-              <CustomBtn extraStyle='rounded-full w-[15%]' accion={() => {}}>
+              <CustomBtn extraStyle='rounded-full w-[120px]' accion={() => {}}>
                 <p>Rendirse</p>
               </CustomBtn>
             </Link>
