@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import { Link, useParams } from 'react-router';
 import Carta from '../components/Carta';
 import type { CartaType } from '../data/entidades';
 import CustomBtn from '../components/CustomBtn';
@@ -195,14 +195,17 @@ function CampoDeBatalla() {
             {carta1 && carta2 && (
               <LogsBatalla turno={1} p1={carta1} p2={carta2} damage={100} />
             )}
-            <CustomBtn extraStyle='rounded-full w-[15%]' accion={() => {}}>
-              <p>Rendirse</p>
-            </CustomBtn>
+            <Link to='/'>
+              <CustomBtn extraStyle='rounded-full w-[15%]' accion={() => {}}>
+                <p>Rendirse</p>
+              </CustomBtn>
+            </Link>
           </div>
           <div className='flex items-center justify-center'>
             {carta1 && carta2 && (
               <p className='mr-4 text-xl font-bold'>
-                Turno {turno}: {jugadorTurno === 'p1' ? carta1.name : carta2.name}
+                Turno {turno}:{' '}
+                {jugadorTurno === 'p1' ? carta1.name : carta2.name}
               </p>
             )}
             <CustomBtn
